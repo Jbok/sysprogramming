@@ -15,17 +15,22 @@ if [ "$mode" == "0" ]; then
   fi
 elif [ "$mode" == "1" ]; then
   token_balance=`redis-cli get token_balance`
-  ./lcd_controller "wish $token_balance Token to change?"
+  message="wish $token_balance Token to change?"
+  ./lcd_controller "$message"
+  redis-cli set message "${message}" > /dev/null
 elif [ "$mode" == "2" ]; then
   token_balance=`redis-cli get token_balance`
   change=`python -c "print int(${token_balance} * 0.001)"`
   redis-cli incrby account $change
+  redis-cli decrby token_balance $token_balance
   redis-cli set button 3
   redis-cli expire button 4
 elif [ "$mode" == "3" ]; then
   token_balance=`redis-cli get token_balance`
   account=`redis-cli get account`
-  ./lcd_controller "acc: $account / token: $token_balance"
+  message="acc: $account / token: $token_balance"
+  ./lcd_controller "$message"
+  redis-cli set message "${message}" > /dev/null
 else
   redis-cli set button 0
 fi

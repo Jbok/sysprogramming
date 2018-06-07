@@ -21,9 +21,9 @@ SleepTimeL = 2
 i=0
   
 # main loop  
-state = GPIO.input(21)
+#state = GPIO.input(21)
 #print state
-GPIO.output(17, 1-int(state))
+#GPIO.output(17, 1-int(state))
 
 time.sleep(0.002)
 #if i == 10:

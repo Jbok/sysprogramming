@@ -165,20 +165,20 @@ int main(void) {
       system(buf);
       sprintf(buf, "redis-cli set temperature %d", (int)b);
       if ( a < 60 ) {
-        if ( last_sw_mode != 1 ) {
-          last_sw_mode = 1;
-          fd = open("/dev/switch_dev", O_RDWR);
-          write(fd, "blink", 5);
-          close(fd);
-        }
+//        if ( last_sw_mode != 1 ) {
+        last_sw_mode = 1;
+        fd = open("/dev/switch_dev", O_RDWR);
+        write(fd, "blink", 5);
+        close(fd);
+//        }
       }
       else {
-        if ( last_sw_mode != 0 ) {
-          last_sw_mode = 0;
-          fd = open("/dev/switch_dev", O_RDWR);
-          write(fd, "no blink", 8);
-          close(fd);
-        }
+        //if ( last_sw_mode != 0 ) {
+        last_sw_mode = 0;
+        fd = open("/dev/switch_dev", O_RDWR);
+        write(fd, "no blink", 8);
+        close(fd);
+        //}
       }
       system(buf);
     }
